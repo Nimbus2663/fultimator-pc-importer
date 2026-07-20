@@ -1,7 +1,7 @@
 import OBR from "https://cdn.jsdelivr.net/npm/@owlbear-rodeo/sdk@3.1.0/+esm";
 import {
   DEFAULT_SETTINGS,
-  HUD_MODAL_ID,
+  HUD_OVERLAY_ID,
   HUD_SETTINGS_KEY,
   STATUSES,
   ULTIMATE_STORY_KEY,
@@ -27,6 +27,7 @@ const els = {
   closeHud: document.getElementById("closeHud"),
   anchor: document.getElementById("anchor"),
   density: document.getElementById("density"),
+  style: document.getElementById("style"),
   opacity: document.getElementById("opacity"),
   showDown: document.getElementById("showDown"),
   characterList: document.getElementById("characterList"),
@@ -71,31 +72,81 @@ async function boot() {
 function bindEvents() {
   els.openHud.addEventListener("click", openHud);
   els.closeHud.addEventListener("click", closeHud);
-  for (const input of [els.anchor, els.density, els.opacity, els.showDown]) {
+  for (const input of [els.anchor, els.density, els.style, els.opacity, els.showDown]) {
     input.addEventListener("change", saveSettingsFromInputs);
     input.addEventListener("input", saveSettingsFromInputs);
   }
 }
 
 async function openHud() {
-  await OBR.modal.open({
-    id: HUD_MODAL_ID,
+  const frame = popoverFrame();
+  await OBR.popover.open({
+    id: HUD_OVERLAY_ID,
     url: new URL("../overlay.html", import.meta.url).href,
-    fullScreen: true,
     hideBackdrop: true,
     hidePaper: true,
-    disablePointerEvents: true
+    disableClickAway: true,
+    width: frame.width,
+    height: frame.height,
+    anchorReference: "POSITION",
+    anchorPosition: frame.anchorPosition,
+    anchorOrigin: frame.anchorOrigin,
+    transformOrigin: frame.transformOrigin,
+    marginThreshold: 8
   });
   showToast("HUD abierto.");
 }
 
 async function closeHud() {
   try {
-    await OBR.modal.close(HUD_MODAL_ID);
+    await OBR.popover.close(HUD_OVERLAY_ID);
   } catch {
-    // Already closed.
+    // Already closed or from an older SDK state.
+  }
+  try {
+    await OBR.modal.close(HUD_OVERLAY_ID);
+  } catch {
+    // Closes the old fullscreen modal if it was left open by v0.1.0.
   }
   showToast("HUD cerrado.");
+}
+
+function popoverFrame() {
+  const size = {
+    compact: { width: 440, height: 290 },
+    standard: { width: 540, height: 380 },
+    theatre: { width: 700, height: 440 }
+  }[state.settings.density] || { width: 540, height: 380 };
+
+  const far = 100000;
+  const origins = {
+    "bottom-left": {
+      anchorPosition: { left: 12, top: far },
+      anchorOrigin: { horizontal: "LEFT", vertical: "TOP" },
+      transformOrigin: { horizontal: "LEFT", vertical: "BOTTOM" }
+    },
+    "bottom-center": {
+      anchorPosition: { left: far / 2, top: far },
+      anchorOrigin: { horizontal: "CENTER", vertical: "TOP" },
+      transformOrigin: { horizontal: "CENTER", vertical: "BOTTOM" }
+    },
+    "top-left": {
+      anchorPosition: { left: 12, top: 12 },
+      anchorOrigin: { horizontal: "LEFT", vertical: "TOP" },
+      transformOrigin: { horizontal: "LEFT", vertical: "TOP" }
+    },
+    "top-right": {
+      anchorPosition: { left: far, top: 12 },
+      anchorOrigin: { horizontal: "LEFT", vertical: "TOP" },
+      transformOrigin: { horizontal: "RIGHT", vertical: "TOP" }
+    }
+  }[state.settings.anchor] || {
+    anchorPosition: { left: 12, top: far },
+    anchorOrigin: { horizontal: "LEFT", vertical: "TOP" },
+    transformOrigin: { horizontal: "LEFT", vertical: "BOTTOM" }
+  };
+
+  return { ...size, ...origins };
 }
 
 async function refreshRoomSettings() {
@@ -125,6 +176,7 @@ function updateSceneStatus() {
 function syncSettingsInputs() {
   els.anchor.value = state.settings.anchor;
   els.density.value = state.settings.density;
+  els.style.value = state.settings.style;
   els.opacity.value = String(state.settings.opacity);
   els.showDown.checked = state.settings.showDown;
 }
@@ -133,6 +185,7 @@ async function saveSettingsFromInputs() {
   state.settings = normalizeSettings({
     anchor: els.anchor.value,
     density: els.density.value,
+    style: els.style.value,
     opacity: els.opacity.value,
     showDown: els.showDown.checked
   });
