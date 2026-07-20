@@ -28,7 +28,9 @@ http://127.0.0.1:5173/manifest.json
 - It cannot write to Ultimate Story local saves directly because browser localStorage is isolated per extension origin.
 - It keeps a backup/export button for the converted Ultimate Story JSON.
 - It includes a Fabula Tracker panel that edits HP, MP, IP, avatar URL, and status effects from the same scene metadata.
-- Pilot vehicles/modules are imported into notes and a `Pilot Vehicles` category when present in the Fultimator JSON.
+- Pilot vehicles/modules are imported into notes plus `Pilot Vehicles` and `Pilot Modules` categories when present in the Fultimator JSON.
+- Weapon-like pilot modules are also added as Ultimate Story actions when the JSON includes check/damage data.
+- Official compendium text is not bundled. If Fultimator exports only keys such as `ElementalMagic_desc`, the importer adds a clean Compendium search reference instead.
 
 ## Public hosting
 
