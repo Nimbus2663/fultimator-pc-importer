@@ -15,4 +15,4 @@ Owlbear Rodeo overlay for Fabula Ultima characters stored in Ultimate Story scen
 4. Click the Fabula HUD action.
 5. Press **Abrir HUD**.
 
-The overlay updates when the scene metadata changes, so changes made through Ultimate Story or the Fultimator importer are reflected live.
+The overlay opens as a persistent popover, so it does not darken the whole Owlbear screen. It updates when the scene metadata changes, so changes made through Ultimate Story or the Fultimator importer are reflected live.
