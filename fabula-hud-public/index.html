@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fabula HUD</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="controlBody">
+    <main class="controlApp">
+      <header class="controlHeader">
+        <div>
+          <h1>Fabula HUD</h1>
+          <p>Overlay vivo para personajes de Ultimate Story.</p>
+        </div>
+        <span id="sceneStatus" class="pill">Checking...</span>
+      </header>
+
+      <section class="panel">
+        <div class="buttonRow">
+          <button id="openHud" type="button">Abrir HUD</button>
+          <button id="closeHud" type="button" class="ghost">Cerrar</button>
+        </div>
+        <div class="settingsGrid">
+          <label>
+            Posicion
+            <select id="anchor">
+              <option value="bottom-left">Abajo izq.</option>
+              <option value="bottom-center">Abajo centro</option>
+              <option value="top-left">Arriba izq.</option>
+              <option value="top-right">Arriba der.</option>
+            </select>
+          </label>
+          <label>
+            Tamano
+            <select id="density">
+              <option value="standard">Normal</option>
+              <option value="compact">Compacto</option>
+              <option value="theatre">Grande</option>
+            </select>
+          </label>
+          <label>
+            Opacidad
+            <input id="opacity" type="range" min="60" max="100" value="88" />
+          </label>
+          <label class="check">
+            <input id="showDown" type="checkbox" checked />
+            Mostrar a 0 HP
+          </label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="sectionTitle">
+          <h2>Personajes</h2>
+          <span id="countLabel"></span>
+        </div>
+        <div id="characterList" class="editorList"></div>
+      </section>
+
+      <div id="toast" class="toast hidden"></div>
+    </main>
+    <script type="module" src="./src/control.js"></script>
+  </body>
+</html>
