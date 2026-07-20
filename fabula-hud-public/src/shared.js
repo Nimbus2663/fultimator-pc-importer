@@ -1,10 +1,11 @@
 export const ULTIMATE_STORY_KEY = "ultimate.story.extension/metadata";
 export const HUD_SETTINGS_KEY = "fabula.scene.hud/settings";
-export const HUD_MODAL_ID = "fabula.scene.hud/overlay";
+export const HUD_OVERLAY_ID = "fabula.scene.hud/overlay";
 
 export const DEFAULT_SETTINGS = {
   anchor: "bottom-left",
   density: "standard",
+  style: "phantom",
   opacity: 88,
   showDown: true
 };
@@ -45,6 +46,7 @@ export function normalizeSettings(settings) {
   return {
     anchor: ["bottom-left", "bottom-center", "top-left", "top-right"].includes(settings.anchor) ? settings.anchor : DEFAULT_SETTINGS.anchor,
     density: ["standard", "compact", "theatre"].includes(settings.density) ? settings.density : DEFAULT_SETTINGS.density,
+    style: ["clean", "phantom"].includes(settings.style) ? settings.style : DEFAULT_SETTINGS.style,
     opacity: Math.max(60, Math.min(100, numeric(settings.opacity, DEFAULT_SETTINGS.opacity))),
     showDown: settings.showDown !== false
   };
