@@ -40,13 +40,15 @@ function enhanceSkills(converted, source, compendium) {
   for (const cls of source.classes || []) {
     const clsName = className(cls);
     const clsLevel = classLevel(cls);
-    const category = findOrCreateCategory(converted.skills, `${clsName} Lv ${clsLevel}`, "Class");
+    const category = findOrCreateClassCategory(converted.skills, clsName, clsLevel);
     category.items = Array.isArray(category.items) ? category.items : [];
+    const activeSkills = (cls.skills || []).filter((skill) => skillCurrentLevel(skill) > 0);
+    if (activeSkills.length) {
+      category.items = category.items.filter((item) => !isClassPlaceholder(item, clsName));
+    }
 
-    for (const skill of cls.skills || []) {
+    for (const skill of activeSkills) {
       const current = skillCurrentLevel(skill);
-      if (current <= 0) continue;
-
       const name = skillName(skill);
       const detail = skillDetail(skill, compendium);
       const item = findOrCreateItem(category.items, name);
@@ -94,6 +96,21 @@ function findOrCreateCategory(categories, name, info) {
   return category;
 }
 
+function findOrCreateClassCategory(categories, clsName, clsLevel) {
+  const clsKey = normalizeLookup(clsName);
+  let category = categories.find((item) => (
+    normalizeLookup(item.categoryInfo) === "class"
+    && normalizeLookup(String(item.categoryName || "").replace(/\s*lv\s*\d+\s*$/i, "")) === clsKey
+  ));
+  if (!category) {
+    category = { categoryName: "", categoryInfo: "Class", items: [], collapse: true };
+    categories.push(category);
+  }
+  category.categoryName = `${clsName} Lv ${clsLevel}`;
+  category.categoryInfo = "Class";
+  return category;
+}
+
 function findOrCreateItem(items, name) {
   const key = normalizeLookup(name);
   let item = items.find((entry) => normalizeLookup(entry.name) === key);
@@ -105,6 +122,12 @@ function findOrCreateItem(items, name) {
     items.push(item);
   }
   return item;
+}
+
+function isClassPlaceholder(item, clsName) {
+  const name = normalizeLookup(item?.name);
+  const info = String(item?.info || "").toLowerCase();
+  return name === normalizeLookup(clsName) && info.startsWith("level");
 }
 
 function upsertUnique(list, next, keyFor) {
