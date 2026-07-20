@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Fultimator PC Importer">
-  <rect width="64" height="64" rx="14" fill="#171923"/>
-  <path d="M18 12h21l9 9v31H18z" fill="#f7d774"/>
-  <path d="M39 12v10h9" fill="#d9a83c"/>
-  <path d="M24 31h16M24 39h11M24 47h16" stroke="#171923" stroke-width="4" stroke-linecap="round"/>
-  <path d="M13 33l8-8v6h14v4H21v6z" fill="#69d2ff"/>
-</svg>
