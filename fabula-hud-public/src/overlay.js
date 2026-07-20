@@ -69,7 +69,7 @@ async function refreshCharacters() {
 }
 
 function render() {
-  root.className = `hudRoot ${state.settings.anchor} ${state.settings.density}`;
+  root.className = `hudRoot ${state.settings.anchor} ${state.settings.density} ${state.settings.style}`;
   root.style.setProperty("--hud-opacity", String(state.settings.opacity / 100));
   root.replaceChildren();
 
