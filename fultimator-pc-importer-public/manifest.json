@@ -1,14 +1,14 @@
 {
   "name": "Fultimator PC Importer",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "manifest_version": 1,
   "description": "Import Fultimator player JSON into Ultimate Story scene metadata.",
   "author": "Codex",
-  "icon": "https://raw.githack.com/Nimbus2663/fultimator-pc-importer/main/fultimator-pc-importer-public/icon.svg?v=045",
+  "icon": "https://rawcdn.githack.com/Nimbus2663/fultimator-pc-importer/a35145e2cecf5ee6d57aacff57ea10cdb78c6abc/fultimator-pc-importer-public/icon.svg",
   "action": {
     "title": "Fultimator PC Importer",
-    "icon": "https://raw.githack.com/Nimbus2663/fultimator-pc-importer/main/fultimator-pc-importer-public/icon.svg?v=045",
-    "popover": "https://raw.githack.com/Nimbus2663/fultimator-pc-importer/main/fultimator-pc-importer-public/index.html?v=045",
+    "icon": "https://rawcdn.githack.com/Nimbus2663/fultimator-pc-importer/a35145e2cecf5ee6d57aacff57ea10cdb78c6abc/fultimator-pc-importer-public/icon.svg",
+    "popover": "https://rawcdn.githack.com/Nimbus2663/fultimator-pc-importer/a35145e2cecf5ee6d57aacff57ea10cdb78c6abc/fultimator-pc-importer-public/index.html",
     "height": 680,
     "width": 520
   },
