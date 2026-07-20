@@ -1,0 +1,15 @@
+{
+  "name": "Fabula Scene HUD",
+  "version": "0.1.0",
+  "manifest_version": 1,
+  "description": "Live Fabula Ultima HP/MP/status overlay for Ultimate Story characters.",
+  "author": "Codex",
+  "icon": "https://rawcdn.githack.com/Nimbus2663/fultimator-pc-importer/51d36be66755775d6b4e597b1c4383ae0d7048c2/fabula-hud-public/icon.svg",
+  "action": {
+    "title": "Fabula HUD",
+    "icon": "https://rawcdn.githack.com/Nimbus2663/fultimator-pc-importer/51d36be66755775d6b4e597b1c4383ae0d7048c2/fabula-hud-public/icon.svg",
+    "popover": "https://rawcdn.githack.com/Nimbus2663/fultimator-pc-importer/51d36be66755775d6b4e597b1c4383ae0d7048c2/fabula-hud-public/index.html",
+    "height": 620,
+    "width": 430
+  }
+}
