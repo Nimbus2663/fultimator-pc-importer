@@ -31,6 +31,7 @@ http://127.0.0.1:5173/manifest.json
 - Pilot vehicles/modules are imported into notes plus `Pilot Vehicles` and `Pilot Modules` categories when present in the Fultimator JSON.
 - Weapon-like pilot modules are also added as Ultimate Story actions when the JSON includes check/damage data.
 - Official compendium text is not bundled. If Fultimator exports only keys such as `ElementalMagic_desc`, the importer adds a clean Compendium search reference instead.
+- If Fabula Compendium sends a skill to the room, the importer remembers that description in room metadata and can use it on future imports.
 
 ## Public hosting
 
